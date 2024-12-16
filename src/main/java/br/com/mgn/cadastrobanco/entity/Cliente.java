@@ -17,7 +17,7 @@ public class Cliente {
     private LocalDate dataNascimento;
     private String telefone;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Endereco endereco;
 
     public Cliente() {
