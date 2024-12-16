@@ -2,6 +2,7 @@ package br.com.mgn.cadastrobanco.controller;
 
 import br.com.mgn.cadastrobanco.controller.dto.ClienteDTO;
 import br.com.mgn.cadastrobanco.service.ClienteService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,20 +20,22 @@ public class ClienteController {
 
     @PostMapping
     public ResponseEntity<ClienteDTO> criarCliente(@RequestBody @Valid ClienteDTO clienteDTO) {
-        ClienteDTO clienteCriado = clienteService.criarCliente(clienteDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(clienteCriado);
+        return clienteService.criarCliente(clienteDTO)
+                .map(input -> ResponseEntity.status(HttpStatus.CREATED).body(input))
+                .orElseGet(() -> ResponseEntity.unprocessableEntity().build());
     }
 
     @GetMapping("/{cpf}")
-    public ResponseEntity<ClienteDTO> buscarCliente(@PathVariable String cpf) {
-        ClienteDTO cliente = clienteService.buscarClientePorCpf(cpf);
-        return ResponseEntity.ok(cliente);
+    public ResponseEntity<ClienteDTO> buscarClientePorCpf(@PathVariable String cpf) {
+        return clienteService.buscarClientePorCpf(cpf)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{cpf}")
     public ResponseEntity<ClienteDTO> atualizarCliente(@PathVariable String cpf, @RequestBody @Valid ClienteDTO clienteDTO) {
-        ClienteDTO clienteAtualizado = clienteService.atualizarCliente(cpf, clienteDTO);
-        return ResponseEntity.ok(clienteAtualizado);
+        return clienteService.atualizarCliente(cpf, clienteDTO).map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{cpf}")
@@ -41,4 +44,3 @@ public class ClienteController {
         return ResponseEntity.noContent().build();
     }
 }
-

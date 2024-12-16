@@ -5,50 +5,46 @@ import br.com.mgn.cadastrobanco.controller.dto.EnderecoDTO;
 import br.com.mgn.cadastrobanco.entity.Cliente;
 import br.com.mgn.cadastrobanco.entity.Endereco;
 import br.com.mgn.cadastrobanco.repository.ClienteRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class ClienteService {
 
-    private ClienteRepository clienteRepository;
+    private final ClienteRepository clienteRepository;
 
     public ClienteService(ClienteRepository clienteRepository) {
         this.clienteRepository = clienteRepository;
     }
 
-    public ClienteDTO criarCliente(ClienteDTO clienteDTO) {
+    public  Optional<ClienteDTO> criarCliente(ClienteDTO clienteDTO) {
         Cliente cliente = clienteRepository.save(mapToEntity(clienteDTO));
         return mapToDTO(cliente);
     }
 
-    public ClienteDTO buscarClientePorCpf(String cpf) {
-        Cliente cliente = clienteRepository.findByCpf(cpf);
-        // .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
+    public Optional<ClienteDTO> buscarClientePorCpf(String cpf) {
+        var cliente = clienteRepository.findByCpf(cpf).orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
         return mapToDTO(cliente);
     }
 
-    public ClienteDTO atualizarCliente(String cpf, ClienteDTO clienteDTO) {
-        Cliente cliente = clienteRepository.findByCpf(cpf);
-        // .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
-
+    public  Optional<ClienteDTO> atualizarCliente(String cpf, ClienteDTO clienteDTO) {
+        var cliente = clienteRepository.findByCpf(cpf).orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
         cliente.setNome(clienteDTO.nome());
         cliente.setDataNascimento(clienteDTO.dataNascimento());
         cliente.setTelefone(clienteDTO.telefone());
         cliente.setEndereco(mapToEntity(clienteDTO.endereco()));
-
         cliente = clienteRepository.save(cliente);
         return mapToDTO(cliente);
     }
 
-
     public void deletarCliente(String cpf) {
-        Cliente cliente = clienteRepository.findByCpf(cpf);
-        // .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
+        var cliente = clienteRepository.findByCpf(cpf).orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
         clienteRepository.delete(cliente);
     }
 
-    // Métodos de mapeamento (mapToEntity, mapToDTO)
     private Endereco mapToEntity(@NotNull EnderecoDTO enderecoDTO) {
         var endereco = new Endereco();
         endereco.setLogradouro(enderecoDTO.logradouro());
@@ -70,8 +66,8 @@ public class ClienteService {
         return cliente;
     }
 
-    private ClienteDTO mapToDTO(Cliente cliente) {
-        return new ClienteDTO(cliente.getCpf(), cliente.getNome(), cliente.getDataNascimento(), cliente.getTelefone(), mapToDTO(cliente.getEndereco()));
+    private Optional<ClienteDTO> mapToDTO(Cliente cliente) {
+        return Optional.of(new ClienteDTO(cliente.getCpf(), cliente.getNome(), cliente.getDataNascimento(), cliente.getTelefone(), mapToDTO(cliente.getEndereco())));
     }
 
     private EnderecoDTO mapToDTO(Endereco endereco) {
