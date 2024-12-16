@@ -2,11 +2,14 @@ package br.com.mgn.cadastrobanco.entity;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class Endereco {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long enderecoId;
     private String logradouro;
     private String numero;
@@ -18,8 +21,7 @@ public class Endereco {
     public Endereco() {
     }
 
-    public Endereco(Long enderecoId, String logradouro, String numero, String bairro, String cidade, String estado, String cep) {
-        this.enderecoId = enderecoId;
+    public Endereco(String logradouro, String numero, String bairro, String cidade, String estado, String cep) {
         this.logradouro = logradouro;
         this.numero = numero;
         this.bairro = bairro;
