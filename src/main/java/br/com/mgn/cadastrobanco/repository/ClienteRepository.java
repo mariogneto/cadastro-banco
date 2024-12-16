@@ -1,6 +1,6 @@
 package br.com.mgn.cadastrobanco.repository;
 
-import br.com.mgn.cadastrobanco.entity.Cliente;
+import br.com.mgn.cadastrobanco.domain.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

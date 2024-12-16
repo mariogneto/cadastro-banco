@@ -1,4 +1,4 @@
-package br.com.mgn.cadastrobanco.entity;
+package br.com.mgn.cadastrobanco.domain;
 
 import jakarta.persistence.*;
 

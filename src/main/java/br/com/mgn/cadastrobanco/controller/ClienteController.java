@@ -1,6 +1,6 @@
 package br.com.mgn.cadastrobanco.controller;
 
-import br.com.mgn.cadastrobanco.controller.dto.ClienteDTO;
+import br.com.mgn.cadastrobanco.domain.ClienteDTO;
 import br.com.mgn.cadastrobanco.service.ClienteService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

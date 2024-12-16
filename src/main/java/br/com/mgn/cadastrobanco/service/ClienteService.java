@@ -1,9 +1,9 @@
 package br.com.mgn.cadastrobanco.service;
 
-import br.com.mgn.cadastrobanco.controller.dto.ClienteDTO;
-import br.com.mgn.cadastrobanco.controller.dto.EnderecoDTO;
-import br.com.mgn.cadastrobanco.entity.Cliente;
-import br.com.mgn.cadastrobanco.entity.Endereco;
+import br.com.mgn.cadastrobanco.domain.ClienteDTO;
+import br.com.mgn.cadastrobanco.domain.EnderecoDTO;
+import br.com.mgn.cadastrobanco.domain.Cliente;
+import br.com.mgn.cadastrobanco.domain.Endereco;
 import br.com.mgn.cadastrobanco.repository.ClienteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.constraints.NotNull;

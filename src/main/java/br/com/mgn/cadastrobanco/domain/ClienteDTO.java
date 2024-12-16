@@ -1,4 +1,4 @@
-package br.com.mgn.cadastrobanco.controller.dto;
+package br.com.mgn.cadastrobanco.domain;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
