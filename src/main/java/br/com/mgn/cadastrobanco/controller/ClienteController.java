@@ -2,7 +2,6 @@ package br.com.mgn.cadastrobanco.controller;
 
 import br.com.mgn.cadastrobanco.controller.dto.ClienteDTO;
 import br.com.mgn.cadastrobanco.service.ClienteService;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
