@@ -53,15 +53,30 @@ public class ClienteService {
 
     // Métodos de mapeamento (mapToEntity, mapToDTO)
     private Endereco mapToEntity(@NotNull EnderecoDTO enderecoDTO) {
-        return null;
+        var endereco = new Endereco();
+        endereco.setLogradouro(enderecoDTO.logradouro());
+        endereco.setNumero(enderecoDTO.numero());
+        endereco.setBairro(enderecoDTO.bairro());
+        endereco.setCidade(enderecoDTO.cidade());
+        endereco.setEstado(enderecoDTO.estado());
+        endereco.setCep(enderecoDTO.cep());
+        return endereco;
     }
     private Cliente mapToEntity(@NotNull ClienteDTO clienteDTO) {
-        return null;
+        var cliente = new Cliente();
+        cliente.setCpf(clienteDTO.cpf());
+        cliente.setNome(clienteDTO.nome());
+        cliente.setDataNascimento(clienteDTO.dataNascimento());
+        cliente.setTelefone(clienteDTO.telefone());
+        cliente.setEndereco(mapToEntity(clienteDTO.endereco()));
+        return cliente;
     }
     private ClienteDTO mapToDTO(Cliente cliente) {
-        return null;
+        return new ClienteDTO(cliente.getCpf(), cliente.getNome(), cliente.getDataNascimento(), cliente.getTelefone(), mapToDTO(cliente.getEndereco()));
     }
 
-
+    private EnderecoDTO mapToDTO(Endereco endereco) {
+        return new EnderecoDTO(endereco.getLogradouro(), endereco.getNumero(), endereco.getBairro(), endereco.getCidade(), endereco.getEstado(), endereco.getCep());
+    }
 
 }
