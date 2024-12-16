@@ -1,7 +1,7 @@
 package br.com.mgn.cadastrobanco.service;
 
-import br.com.mgn.cadastrobanco.controller.ClienteDTO;
-import br.com.mgn.cadastrobanco.controller.EnderecoDTO;
+import br.com.mgn.cadastrobanco.controller.dto.ClienteDTO;
+import br.com.mgn.cadastrobanco.controller.dto.EnderecoDTO;
 import br.com.mgn.cadastrobanco.entity.Cliente;
 import br.com.mgn.cadastrobanco.entity.Endereco;
 import br.com.mgn.cadastrobanco.repository.ClienteRepository;
