@@ -5,11 +5,8 @@ import br.com.mgn.cadastrobanco.controller.EnderecoDTO;
 import br.com.mgn.cadastrobanco.entity.Cliente;
 import br.com.mgn.cadastrobanco.entity.Endereco;
 import br.com.mgn.cadastrobanco.repository.ClienteRepository;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Service
 public class ClienteService {
@@ -27,13 +24,13 @@ public class ClienteService {
 
     public ClienteDTO buscarClientePorCpf(String cpf) {
         Cliente cliente = clienteRepository.findByCpf(cpf);
-               // .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
+        // .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
         return mapToDTO(cliente);
     }
 
     public ClienteDTO atualizarCliente(String cpf, ClienteDTO clienteDTO) {
         Cliente cliente = clienteRepository.findByCpf(cpf);
-               // .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
+        // .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
 
         cliente.setNome(clienteDTO.nome());
         cliente.setDataNascimento(clienteDTO.dataNascimento());
@@ -47,7 +44,7 @@ public class ClienteService {
 
     public void deletarCliente(String cpf) {
         Cliente cliente = clienteRepository.findByCpf(cpf);
-               // .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
+        // .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
         clienteRepository.delete(cliente);
     }
 
@@ -62,6 +59,7 @@ public class ClienteService {
         endereco.setCep(enderecoDTO.cep());
         return endereco;
     }
+
     private Cliente mapToEntity(@NotNull ClienteDTO clienteDTO) {
         var cliente = new Cliente();
         cliente.setCpf(clienteDTO.cpf());
@@ -71,6 +69,7 @@ public class ClienteService {
         cliente.setEndereco(mapToEntity(clienteDTO.endereco()));
         return cliente;
     }
+
     private ClienteDTO mapToDTO(Cliente cliente) {
         return new ClienteDTO(cliente.getCpf(), cliente.getNome(), cliente.getDataNascimento(), cliente.getTelefone(), mapToDTO(cliente.getEndereco()));
     }
