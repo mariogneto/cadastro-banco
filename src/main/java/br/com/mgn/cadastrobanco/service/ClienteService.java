@@ -20,7 +20,7 @@ public class ClienteService {
         this.clienteRepository = clienteRepository;
     }
 
-    public  Optional<ClienteDTO> criarCliente(ClienteDTO clienteDTO) {
+    public Optional<ClienteDTO> criarCliente(ClienteDTO clienteDTO) {
         Cliente cliente = clienteRepository.save(mapToEntity(clienteDTO));
         return mapToDTO(cliente);
     }
@@ -30,7 +30,7 @@ public class ClienteService {
         return mapToDTO(cliente);
     }
 
-    public  Optional<ClienteDTO> atualizarCliente(String cpf, ClienteDTO clienteDTO) {
+    public Optional<ClienteDTO> atualizarCliente(String cpf, ClienteDTO clienteDTO) {
         var cliente = clienteRepository.findByCpf(cpf).orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
         cliente.setNome(clienteDTO.nome());
         cliente.setDataNascimento(clienteDTO.dataNascimento());
