@@ -73,3 +73,7 @@ public class Endereco {
     private String cep;
 }
 
+API SWAGGER
+
+http://localhost:8080/swagger-ui/index.html
+
