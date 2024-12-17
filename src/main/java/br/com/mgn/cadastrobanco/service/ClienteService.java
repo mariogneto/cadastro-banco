@@ -26,7 +26,7 @@ public class ClienteService {
     }
 
     public Optional<ClienteDTO> buscarClientePorCpf(String cpf) {
-        var cliente = clienteRepository.findByCpf(cpf).orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
+        var cliente = clienteRepository.findByCpf(cpf).orElseThrow(() -> new EntityNotFoundException(String.format("Cliente %s não encontrado", cpf)));
         return mapToDTO(cliente);
     }
 
